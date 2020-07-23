@@ -113,6 +113,7 @@ macro(arp_add_nodelet _nodelet_cpp _nodelet_class _single_nodelet_exec_name)
 endmacro()
 
 arp_add_nodelet(src/deep_object_detection.cpp "edgetpu_rospp/DeepObjectDetecion" "deep_object_detection")
+arp_add_nodelet(src/edgetpu_object_detection.cpp "edgetpu_rospp/EdgeTpuObjectDetecion" "edgetpu_object_detection")
 arp_add_nodelet(src/single_object_tracking_by_deep_detection.cpp "edgetpu_rospp/SingleObjectDeepTrackingDetection" "single_object_tracking_by_deep_detection")
 
 add_library(${PROJECT_NAME} SHARED ${edgetpu_roscpp_nodelet_sources})

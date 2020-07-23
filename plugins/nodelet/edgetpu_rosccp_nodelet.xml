@@ -5,6 +5,11 @@
          base_class_type="nodelet::Nodelet">
   </class>
 
+  <class name="edgetpu_roscpp/EdgeTpuObjectDetection"
+         type="edgetpu_roscpp::EdgeTpuObjectDetection"
+         base_class_type="nodelet::Nodelet">
+  </class>
+
   <class name="edgetpu_roscpp/SingleObjectDeepTrackingDetection"
          type="edgetpu_roscpp::SingleObjectDeepTrackingDetection"
          base_class_type="nodelet::Nodelet">

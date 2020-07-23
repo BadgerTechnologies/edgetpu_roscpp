@@ -1,0 +1,34 @@
+<launch>
+  <arg name="need_nodelet_manager" default="true"/>
+  <arg name="image_view" default="true"/>
+  <arg name="verbose" default="true"/>
+
+    <!-- default="$(find edgetpu_roscpp)/edgetpu/test_data/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite" /> -->
+    <!-- default="$(find edgetpu_roscpp)/edgetpu/test_data/mobilenet_v2_1.0_224_quant_edgetpu.tflite" /> -->
+    <!-- default="$(find edgetpu_roscpp)/edgetpu/test_data/posenet/posenet_mobilenet_v1_075_721_1281_quant_decoder_edgetpu.tflite" /> -->
+    <!-- default="$(find edgetpu_roscpp)/edgetpu/test_data/inception_v1_224_quant_edgetpu.tflite" /> -->
+    <!-- default="$(find edgetpu_roscpp)/edgetpu/test_data/mobilenet_v1_0.25_128_quant_edgetpu.tflite" /> -->
+  <arg name="model_file"
+    default="$(find edgetpu_roscpp)/edgetpu/test_data/mobilenet_ssd_v1_coco_quant_postprocess_edgetpu.tflite" />
+  <arg name="label_file" default="$(find edgetpu_roscpp)/edgetpu/test_data/coco_labels.txt" />
+  <arg name="keep_aspect_ratio" default="false" />
+  <arg name="top_k" default="1" />
+  <arg name="score_threshold" default="0.3" />
+  <arg name="image_topic" default="/camera/image_raw" />
+
+  <node pkg="nodelet" type="nodelet" name="detection_nodelet" args="manager" output="screen" if="$(arg need_nodelet_manager)"/>
+
+  <!-- launch-prefix="xterm -e gdb - -args"> -->
+  <node pkg="nodelet" type="nodelet" name="edgetpu_object_detection"
+    args="load edgetpu_roscpp/EdgeTpuObjectDetection detection_nodelet" output="screen" >
+    <remap from="image" to="$(arg image_topic)" />
+    <param name="model_file" value="$(arg model_file)"/>
+    <param name="label_file" value="$(arg label_file)"/>
+    <param name="keep_aspect_ratio" value="$(arg keep_aspect_ratio)"/>
+    <param name="top_k" value="$(arg top_k)"/>
+    <param name="score_threshold" value="$(arg score_threshold)"/>
+    <param name="image_view" value="$(arg image_view)"/>
+    <param name="verbose" value="$(arg verbose)"/>
+  </node>
+
+</launch>
